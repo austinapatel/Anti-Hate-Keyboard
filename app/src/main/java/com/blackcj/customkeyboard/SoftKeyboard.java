@@ -71,7 +71,7 @@ public class SoftKeyboard extends InputMethodService
     private InputMethodManager mInputMethodManager;
 
     private LatinKeyboardView mInputView;
-    private CandidateView mCandidateView;
+    public static CandidateView mCandidateView;
     private CompletionInfo[] mCompletions;
     
     private StringBuilder mComposing = new StringBuilder();
@@ -827,6 +827,7 @@ public class SoftKeyboard extends InputMethodService
         word = "";
     }
     public static String abc = "hello";
+
     public void analyzeTone(final String word) {
 
 // Call the service and get the tone

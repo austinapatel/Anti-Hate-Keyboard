@@ -51,9 +51,17 @@ public class LatinKeyboard extends Keyboard {
      * {@link #mLanguageSwitchKey} is changed.
      */
     private Key mSavedLanguageSwitchKey;
+
+    public static LatinKeyboard latinKeyboard;
     
     public LatinKeyboard(Context context, int xmlLayoutResId) {
         super(context, xmlLayoutResId);
+
+        latinKeyboard = this;
+    }
+
+    public static void redraw() {
+        latinKeyboard.redraw();
     }
 
     public LatinKeyboard(Context context, int layoutTemplateResId, 

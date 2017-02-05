@@ -35,12 +35,20 @@ public class LatinKeyboardView extends KeyboardView {
     // TODO: Move this into android.inputmethodservice.Keyboard
     static final int KEYCODE_LANGUAGE_SWITCH = -101;
 
+    static private int alpha = 66;
+
+    public static LatinKeyboardView latinKeyboardView;
+
     public LatinKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        latinKeyboardView = this;
     }
 
     public LatinKeyboardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
+        latinKeyboardView = this;
     }
 
     @Override
@@ -63,31 +71,64 @@ public class LatinKeyboardView extends KeyboardView {
         invalidateAllKeys();
     }
 
+    public static void changeAlpha(double delta) {
+        alpha += delta;
+
+        alpha = Math.min(alpha, 125);
+
+        if (alpha < 0)
+            alpha = 0;
+
+        LatinKeyboardView.latinKeyboardView.postInvalidate();
+
+    }
+
     @Override
     public void onDraw(Canvas canvas) {
+
+
         super.onDraw(canvas);
 
-        Paint paint = new Paint();
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(28);
-        paint.setColor(Color.LTGRAY);
+        Log.d("test", "onDraw cool calleds");
 
-        List<Key> keys = getKeyboard().getKeys();
-        for(Key key: keys) {
-            if(key.label != null) {
-                if (key.label.equals("q")) {
-                    canvas.drawText("1", key.x + (key.width - 25), key.y + 40, paint);
-                } else if (key.label.equals("w")) {
-                    canvas.drawText("2", key.x + (key.width - 25), key.y + 40, paint);
-                } else if (key.label.equals("e")) {
-                    canvas.drawText("3", key.x + (key.width - 25), key.y + 40, paint);
-                } else if (key.label.equals("r")) {
-                    canvas.drawText("4", key.x + (key.width - 25), key.y + 40, paint);
-                } else if (key.label.equals("t")) {
-                    canvas.drawText("5", key.x + (key.width - 25), key.y + 40, paint);
-                }
-            }
+        Paint paint = new Paint();
+
+
+        if (alpha >= 66) {
+            paint.setColor(Color.RED);
+            paint.setAlpha(alpha);
+        }
+        else {
+            paint.setColor(Color.BLUE);
+            paint.setAlpha(66 - alpha);
 
         }
+
+
+        canvas.drawRect(0,0,canvas.getWidth(), canvas.getHeight(), paint);
+
+        paint.setColor(Color.BLACK);
+
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize(28);
+        paint.setAlpha(255);
+
+//        List<Key> keys = getKeyboard().getKeys();
+//        for(Key key: keys) {
+//            if(key.label != null) {
+//                if (key.label.equals("q")) {
+//                    canvas.drawText("1", key.x + (key.width - 25), key.y + 40, paint);
+//                } else if (key.label.equals("w")) {
+//                    canvas.drawText("2", key.x + (key.width - 25), key.y + 40, paint);
+//                } else if (key.label.equals("e")) {
+//                    canvas.drawText("3", key.x + (key.width - 25), key.y + 40, paint);
+//                } else if (key.label.equals("r")) {
+//                    canvas.drawText("4", key.x + (key.width - 25), key.y + 40, paint);
+//                } else if (key.label.equals("t")) {
+//                    canvas.drawText("5", key.x + (key.width - 25), key.y + 40, paint);
+//                }
+//            }
+
+//        }
     }
 }

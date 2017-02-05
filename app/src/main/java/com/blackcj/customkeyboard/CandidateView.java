@@ -59,7 +59,7 @@ public class CandidateView extends View {
     public static double colorScale;
     private int mColorOther;
     private int mVerticalPadding;
-    private static Paint mPaint;
+    public static Paint mPaint;
     private boolean mScrolled;
     private int mTargetScrollX;
     
@@ -94,6 +94,7 @@ public class CandidateView extends View {
         
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
+        mPaint.setColor(Color.DKGRAY);
         mPaint.setTextSize(r.getDimensionPixelSize(R.dimen.candidate_font_height));
         mPaint.setStrokeWidth(0);
         
@@ -128,6 +129,8 @@ public class CandidateView extends View {
         CandidateView.mPaint.setColor(Color.rgb(Math.min((int) colorScale, 255), 0, 0));
 
         Log.d("color", String.valueOf(colorScale));
+
+        SoftKeyboard.mCandidateView.invalidate();
     }
     
     /**
@@ -167,13 +170,15 @@ public class CandidateView extends View {
     protected void onDraw(Canvas canvas) {
         Log.d("hey", "ON DRAW");
 
-        mPaint.setColor(Color.rgb(255,0,0));
+        mPaint.setColor(Color.BLUE);
+
+        mColorNormal = Color.RED;
 
         if (canvas != null) {
             super.onDraw(canvas);
         }
 
-
+        Log.d("hey", "ON DRAW AFTER NULL");
 
         mTotalWidth = 0;
         if (mSuggestions == null) return;
@@ -202,7 +207,7 @@ public class CandidateView extends View {
 
             mWordX[i] = x;
             mWordWidth[i] = wordWidth;
-//            paint.setColor(mColorNormal);
+            paint.setColor(mColorNormal);
             if (touchX + scrollX >= x && touchX + scrollX < x + wordWidth && !scrolled) {
                 if (canvas != null) {
                     canvas.translate(x, 0);
@@ -216,12 +221,12 @@ public class CandidateView extends View {
             if (canvas != null) {
                 if ((i == 1 && !typedWordValid) || (i == 0 && typedWordValid)) {
                     paint.setFakeBoldText(true);
-//                    paint.setColor(mColorRecommended);
+                    paint.setColor(mColorRecommended);
                 } else if (i != 0) {
-//                    paint.setColor(mColorOther);
+                    paint.setColor(mColorOther);
                 }
                 canvas.drawText(suggestion, x + X_GAP, y, paint);
-//                paint.setColor(mColorOther);
+                paint.setColor(mColorOther);
                 canvas.drawLine(x + wordWidth + 0.5f, bgPadding.top, 
                         x + wordWidth + 0.5f, height + 1, paint);
                 paint.setFakeBoldText(false);
