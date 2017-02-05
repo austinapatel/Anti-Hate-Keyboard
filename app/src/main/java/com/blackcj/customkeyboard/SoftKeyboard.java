@@ -400,6 +400,9 @@ public class SoftKeyboard extends InputMethodService
             case KeyEvent.KEYCODE_ENTER:
                 // Let the underlying text editor always handle these.
                 return false;
+            case KeyEvent.KEYCODE_SPACE:
+                onSpacePress();
+                break;
             default:
                 // For all other keys, if we want to do transformations on
                 // text being entered with a hard keyboard, we need to process
@@ -530,6 +533,7 @@ public class SoftKeyboard extends InputMethodService
             if (mComposing.length() > 0) {
                 commitTyped(getCurrentInputConnection());
             }
+            onSpacePress();
             sendKey(primaryCode);
             updateShiftKeyState(getCurrentInputEditorInfo());
         } else if (primaryCode == Keyboard.KEYCODE_DELETE) {
@@ -539,7 +543,11 @@ public class SoftKeyboard extends InputMethodService
         } else if (primaryCode == Keyboard.KEYCODE_CANCEL) {
             handleClose();
             return;
-        } else if (primaryCode == LatinKeyboardView.KEYCODE_LANGUAGE_SWITCH) {
+        }
+//        else if (primaryCode == 32){
+//            onSpacePress();
+//        }
+        else if (primaryCode == LatinKeyboardView.KEYCODE_LANGUAGE_SWITCH) {
             handleLanguageSwitch();
             return;
         } else if (primaryCode == LatinKeyboardView.KEYCODE_OPTIONS) {
@@ -791,5 +799,9 @@ public class SoftKeyboard extends InputMethodService
         }
         Log.d("SoftKeyboard", "SUGGESTIONS: " + sb.toString());
         setSuggestions(sb, true, true);
+    }
+
+    public void onSpacePress(){
+        Log.d("SoftKeyboard", "space pressed");
     }
 }
