@@ -40,6 +40,9 @@ import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 import android.view.textservice.TextServicesManager;
 
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -540,7 +543,7 @@ public class SoftKeyboard extends InputMethodService
 
         if (primaryCode != Keyboard.KEYCODE_DELETE) {
             word += Character.toString((char) primaryCode);
-        } else {
+        } else if(word.length()>0){
             word = word.substring(0, word.length() - 1);
         }
 
@@ -819,7 +822,28 @@ public class SoftKeyboard extends InputMethodService
 
     public void onSpacePress(){
         Log.d("SoftKeyboard", "space pressed last word was: " + word);
-
+        analyzeTone(word);
         word = "";
+    }
+
+    public void analyzeTone(String word){
+        ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
+        service.setUsernameAndPassword("<username>", "<password>");
+
+        String text =
+                "I know the times are difficult! Our sales have been "
+                        + "disappointing for the past three quarters for our data analytics "
+                        + "product suite. We have a competitive data analytics product "
+                        + "suite in the industry. But we need to do our job selling it! "
+                        + "We need to acknowledge and fix our sales challenges. "
+                        + "We can’t blame the economy for our lack of execution! "
+                        + "We are missing critical sales opportunities. "
+                        + "Our product is in no way inferior to the competitor products. "
+                        + "Our clients are hungry for analytical tools to improve their "
+                        + "business outcomes. Economy has nothing to do with it.";
+
+// Call the service and get the tone
+        ToneAnalysis tone = service.getTone(text, null).execute();
+        Log.d("SoftKeyboard",tone.toString());
     }
 }
