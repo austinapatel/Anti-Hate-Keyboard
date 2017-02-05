@@ -52,8 +52,8 @@ public class CandidateView extends View {
     
     private static final List<String> EMPTY_LIST = new ArrayList<String>();
 
-    private int mColorNormal;
-    private int mColorRecommended;
+    public static int mColorNormal;
+    public static int mColorRecommended;
     private int mColorOther;
     private int mVerticalPadding;
     private Paint mPaint;

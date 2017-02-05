@@ -23,6 +23,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile files('libs/json-1.5-20090211.jar')
 //    compile 'com.ibm.watson.developer_cloud:android-sdk:0.2.2'
     compile 'com.ibm.watson.developer_cloud:java-sdk:3.5.3'
 }
