@@ -102,6 +102,8 @@ public class SoftKeyboard extends InputMethodService
         final TextServicesManager tsm = (TextServicesManager) getSystemService(
                 Context.TEXT_SERVICES_MANAGER_SERVICE);
         mScs = tsm.newSpellCheckerSession(null, null, this, true);
+
+        Log.d("austin", "onCreate called");
     }
     
     /**
@@ -524,7 +526,7 @@ public class SoftKeyboard extends InputMethodService
     // Implementation of KeyboardViewListener
 
     public void onKey(int primaryCode, int[] keyCodes) {
-        Log.d("Test","KEYCODE: " + primaryCode);
+        Log.d("Test", "Austin Was Here KEYCODE: " + primaryCode);
         if (isWordSeparator(primaryCode)) {
             // Handle separator
             if (mComposing.length() > 0) {
