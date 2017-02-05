@@ -3,6 +3,7 @@ package com.ibm;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.blackcj.customkeyboard.CandidateView;
 import com.blackcj.customkeyboard.SoftKeyboard;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
@@ -38,7 +39,7 @@ public class ToneAnalyzerThread extends AsyncTask<String, Void, Void> {
 
         try {
             JSONObject obj = new JSONObject(tone.toString());
-            
+
             JSONObject document_tone = obj.getJSONObject("document_tone");
 
             Log.d("test", document_tone.toString());
@@ -81,6 +82,8 @@ public class ToneAnalyzerThread extends AsyncTask<String, Void, Void> {
         Log.d("keyboard", "anger" + anger);
 
         SoftKeyboard.abc = String.valueOf(anger);
+
+        CandidateView.changeColor(anger * 30);
 
         return null;
     }

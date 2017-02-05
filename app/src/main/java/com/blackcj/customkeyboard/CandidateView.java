@@ -19,9 +19,11 @@ package com.blackcj.customkeyboard;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,9 +56,10 @@ public class CandidateView extends View {
 
     public static int mColorNormal;
     public static int mColorRecommended;
+    public static double colorScale;
     private int mColorOther;
     private int mVerticalPadding;
-    private Paint mPaint;
+    private static Paint mPaint;
     private boolean mScrolled;
     private int mTargetScrollX;
     
@@ -90,7 +93,6 @@ public class CandidateView extends View {
         mVerticalPadding = r.getDimensionPixelSize(R.dimen.candidate_vertical_padding);
         
         mPaint = new Paint();
-        mPaint.setColor(mColorNormal);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(r.getDimensionPixelSize(R.dimen.candidate_font_height));
         mPaint.setStrokeWidth(0);
@@ -118,6 +120,14 @@ public class CandidateView extends View {
         setWillNotDraw(false);
         setHorizontalScrollBarEnabled(false);
         setVerticalScrollBarEnabled(false);
+    }
+
+    public static void changeColor(double change) {
+        CandidateView.colorScale += change;
+
+        CandidateView.mPaint.setColor(Color.rgb(Math.min((int) colorScale, 255), 0, 0));
+
+        Log.d("color", String.valueOf(colorScale));
     }
     
     /**
@@ -155,9 +165,14 @@ public class CandidateView extends View {
      */
     @Override
     protected void onDraw(Canvas canvas) {
+        mPaint.setColor(Color.rgb(255,0,0));
+
         if (canvas != null) {
             super.onDraw(canvas);
         }
+
+        Log.d("hey", "onDraw");
+
         mTotalWidth = 0;
         if (mSuggestions == null) return;
         
@@ -171,7 +186,7 @@ public class CandidateView extends View {
         final int count = mSuggestions.size(); 
         final int height = getHeight();
         final Rect bgPadding = mBgPadding;
-        final Paint paint = mPaint;
+        Paint paint = mPaint;
         final int touchX = mTouchX;
         final int scrollX = getScrollX();
         final boolean scrolled = mScrolled;
@@ -185,7 +200,7 @@ public class CandidateView extends View {
 
             mWordX[i] = x;
             mWordWidth[i] = wordWidth;
-            paint.setColor(mColorNormal);
+//            paint.setColor(mColorNormal);
             if (touchX + scrollX >= x && touchX + scrollX < x + wordWidth && !scrolled) {
                 if (canvas != null) {
                     canvas.translate(x, 0);
@@ -199,12 +214,12 @@ public class CandidateView extends View {
             if (canvas != null) {
                 if ((i == 1 && !typedWordValid) || (i == 0 && typedWordValid)) {
                     paint.setFakeBoldText(true);
-                    paint.setColor(mColorRecommended);
+//                    paint.setColor(mColorRecommended);
                 } else if (i != 0) {
-                    paint.setColor(mColorOther);
+//                    paint.setColor(mColorOther);
                 }
                 canvas.drawText(suggestion, x + X_GAP, y, paint);
-                paint.setColor(mColorOther); 
+//                paint.setColor(mColorOther);
                 canvas.drawLine(x + wordWidth + 0.5f, bgPadding.top, 
                         x + wordWidth + 0.5f, height + 1, paint);
                 paint.setFakeBoldText(false);
