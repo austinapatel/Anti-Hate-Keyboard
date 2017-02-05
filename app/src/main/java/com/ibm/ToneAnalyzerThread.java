@@ -38,21 +38,49 @@ public class ToneAnalyzerThread extends AsyncTask<String, Void, Void> {
 
         try {
             JSONObject obj = new JSONObject(tone.toString());
+            
+            JSONObject document_tone = obj.getJSONObject("document_tone");
 
-//            JSONObject obj1 = obj.getJSONObject("document_tone");
-//            JSONArray arr1 = obj1.getJSONArray("tone_categories");
-//            JSONArray arr2 = arr1.getJSONArray("tones");
+            Log.d("test", document_tone.toString());
 
+            JSONArray tone_categories = document_tone.getJSONArray("tone_categories");
+            Log.d("test", tone_categories.toString());
+
+            JSONObject category1 = tone_categories.getJSONObject(0);
+            Log.d("test", category1.toString());
+
+            JSONArray tones = category1.getJSONArray("tones");
+            Log.d("test", category1.toString());
+
+            JSONObject angerTone = tones.getJSONObject(0);
+            Log.d("test", category1.toString());
+
+            anger = angerTone.getDouble("score");
+
+
+//            JSONObject angerObject = tones.getJSONObject(0);
+//            Log.d("test", angerObject.toString());
+
+//            anger = angerObject.getDouble("score");
+
+//            for(int i = 0; i < angerObject.length(); i++){
+//                try{
+//                    Log.d("Keyboard", angerObject.getString(i));
+//                }
+//                catch(Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
 
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         Log.d("keyboard", tone.toString());
+        Log.d("keyboard", "anger" + anger);
 
-        SoftKeyboard.abc = tone.toString();
+        SoftKeyboard.abc = String.valueOf(anger);
 
         return null;
     }
