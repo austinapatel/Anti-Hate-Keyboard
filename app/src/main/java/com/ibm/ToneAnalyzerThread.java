@@ -39,9 +39,9 @@ public class ToneAnalyzerThread extends AsyncTask<String, Void, Void> {
         try {
             JSONObject obj = new JSONObject(tone.toString());
 
-            JSONObject obj1 = obj.getJSONObject("document_tone");
-            JSONArray arr1 = obj1.getJSONArray("tone_categories");
-            JSONArray arr2 = arr1.getJSONArray("tones");
+//            JSONObject obj1 = obj.getJSONObject("document_tone");
+//            JSONArray arr1 = obj1.getJSONArray("tone_categories");
+//            JSONArray arr2 = arr1.getJSONArray("tones");
 
 
 
