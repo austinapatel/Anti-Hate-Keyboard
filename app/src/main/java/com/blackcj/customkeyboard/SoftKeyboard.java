@@ -89,7 +89,7 @@ public class SoftKeyboard extends InputMethodService
     private SpellCheckerSession mScs;
     private List<String> mSuggestions;
 
-
+    private String word;
 
     /**
      * Main initialization of the input method component.  Be sure to call
@@ -104,6 +104,8 @@ public class SoftKeyboard extends InputMethodService
         mScs = tsm.newSpellCheckerSession(null, null, this, true);
 
         Log.d("austin", "onCreate called");
+
+        word = "";
     }
     
     /**
@@ -375,6 +377,7 @@ public class SoftKeyboard extends InputMethodService
      */
     @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
 
+
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
                 // The InputMethodService already takes care of the back
@@ -436,7 +439,7 @@ public class SoftKeyboard extends InputMethodService
                     }
                 }*/
         }
-        
+
         return super.onKeyDown(keyCode, event);
     }
 
@@ -446,6 +449,8 @@ public class SoftKeyboard extends InputMethodService
      * continue to the app.
      */
     @Override public boolean onKeyUp(int keyCode, KeyEvent event) {
+
+
         // If we want to do transformations on text being entered with a hard
         // keyboard, we need to process the up events to update the meta key
         // state we are tracking.
@@ -502,6 +507,8 @@ public class SoftKeyboard extends InputMethodService
      * Helper to send a key down / key up pair to the current editor.
      */
     private void keyDownUp(int keyEventCode) {
+
+
         getCurrentInputConnection().sendKeyEvent(
                 new KeyEvent(KeyEvent.ACTION_DOWN, keyEventCode));
         getCurrentInputConnection().sendKeyEvent(
@@ -530,6 +537,13 @@ public class SoftKeyboard extends InputMethodService
 
     public void onKey(int primaryCode, int[] keyCodes) {
         Log.d("Test", "Austin Was Here KEYCODE: " + primaryCode);
+
+        if (primaryCode != Keyboard.KEYCODE_DELETE) {
+            word += Character.toString((char) primaryCode);
+        } else {
+            word = word.substring(0, word.length() - 1);
+        }
+
         if (isWordSeparator(primaryCode)) {
             // Handle separator
             if (mComposing.length() > 0) {
@@ -804,6 +818,8 @@ public class SoftKeyboard extends InputMethodService
     }
 
     public void onSpacePress(){
-        Log.d("SoftKeyboard", "space pressed");
+        Log.d("SoftKeyboard", "space pressed last word was: " + word);
+
+        word = "";
     }
 }
