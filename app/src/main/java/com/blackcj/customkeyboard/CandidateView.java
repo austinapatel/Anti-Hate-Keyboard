@@ -165,13 +165,15 @@ public class CandidateView extends View {
      */
     @Override
     protected void onDraw(Canvas canvas) {
+        Log.d("hey", "ON DRAW");
+
         mPaint.setColor(Color.rgb(255,0,0));
 
         if (canvas != null) {
             super.onDraw(canvas);
         }
 
-        Log.d("hey", "onDraw");
+
 
         mTotalWidth = 0;
         if (mSuggestions == null) return;
