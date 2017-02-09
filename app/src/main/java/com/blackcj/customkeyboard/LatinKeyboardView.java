@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2008-2009 The Android Open Source Project
  *
@@ -80,13 +81,10 @@ public class LatinKeyboardView extends KeyboardView {
             alpha = 0;
 
         LatinKeyboardView.latinKeyboardView.postInvalidate();
-
     }
 
     @Override
     public void onDraw(Canvas canvas) {
-
-
         super.onDraw(canvas);
 
         Log.d("test", "onDraw cool calleds");
@@ -103,7 +101,6 @@ public class LatinKeyboardView extends KeyboardView {
             paint.setAlpha(66 - alpha);
 
         }
-
 
         canvas.drawRect(0,0,canvas.getWidth(), canvas.getHeight(), paint);
 

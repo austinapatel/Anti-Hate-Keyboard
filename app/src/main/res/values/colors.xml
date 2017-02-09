@@ -20,7 +20,7 @@
 <resources>
     <color name="colorPrimary">#FFF</color>
     <color name="colorPrimaryDark">#FFF</color>
-    <color name="colorAccent">#FFF</color>
+    <color name="colorAccent">#777</color>
     <color name="candidate_normal">#FF000000</color>
     <color name="candidate_recommended">#000000</color>
     <color name="candidate_other">#ff808080</color>

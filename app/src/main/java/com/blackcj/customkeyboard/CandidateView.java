@@ -122,16 +122,6 @@ public class CandidateView extends View {
         setHorizontalScrollBarEnabled(false);
         setVerticalScrollBarEnabled(false);
     }
-
-    public static void changeColor(double change) {
-        CandidateView.colorScale += change;
-
-        CandidateView.mPaint.setColor(Color.rgb(Math.min((int) colorScale, 255), 0, 0));
-
-        Log.d("color", String.valueOf(colorScale));
-
-        SoftKeyboard.mCandidateView.invalidate();
-    }
     
     /**
      * A connection back to the service to communicate with the text field
