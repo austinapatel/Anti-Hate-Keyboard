@@ -8,6 +8,6 @@ Written in Java using Android Studio.
 
 Made for the 2017 Los Altos Hacks II hackathon with @CheetahGod and @acsamuraix.  Won Third Place and Hacker Harrassment award.
 
-![displayImageWhite](displayImageWhite.png)
-![displayImageBlue](displayImageBlue.png)
-![displayImageRed](displayImageRed.png)
+<img src="displayImageWhite.png" width="200" />
+<img src="displayImageBlue.png" width="200" />
+<img src="displayImageRed.png" width="200" />
